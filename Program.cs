@@ -1,31 +1,44 @@
 ﻿using ShootingDice;
 
-Player player1 = new Player();
-player1.Name = "Bob";
-
-Player player2 = new Player();
-player2.Name = "Sue";
-
+// Create base players
+Player player1 = new Player() { Name = "Bob" };
+Player player2 = new Player() { Name = "Sue" };
 player2.Play(player1);
 
 Console.WriteLine("-------------------");
 
-Player player3 = new Player();
-player3.Name = "Wilma";
-
+Player player3 = new Player() { Name = "Wilma" };
 player3.Play(player2);
 
 Console.WriteLine("-------------------");
 
-Player large = new LargeDicePlayer();
-large.Name = "Bigun Rollsalot";
-
+// LargeDicePlayer
+Player large = new LargeDicePlayer() { Name = "Bigun Rollsalot" };
 player1.Play(large);
 
 Console.WriteLine("-------------------");
 
-List<Player> players = new List<Player>() {
-    player1, player2, player3, large
+// SmackTalkingPlayer
+Player smack = new SmackTalkingPlayer() { Name = "Chad", Taunt = "You're going down!" };
+smack.Play(player1);
+
+Console.WriteLine("-------------------");
+
+// OneHigherPlayer
+Player oneHigher = new OneHigherPlayer() { Name = "Sneaky PlusOne" };
+oneHigher.Play(player2);
+
+Console.WriteLine("-------------------");
+
+// All players
+List<Player> players = new List<Player>()
+{
+    player1,
+    player2,
+    player3,
+    large,
+    smack,
+    oneHigher
 };
 
 PlayMany(players);
@@ -35,27 +48,20 @@ static void PlayMany(List<Player> players)
     Console.WriteLine();
     Console.WriteLine("Let's play a bunch of times, shall we?");
 
-    // We "order" the players by a random number
-    // This has the effect of shuffling them randomly
-    Random randomNumberGenerator = new Random();
-    List<Player> shuffledPlayers = players.OrderBy(p => randomNumberGenerator.Next()).ToList();
+    Random rng = new Random();
+    List<Player> shuffled = players.OrderBy(p => rng.Next()).ToList();
 
-    // We are going to match players against each other
-    // This means we need an even number of players
-    int maxIndex = shuffledPlayers.Count;
-    if (maxIndex % 2 != 0)
+    // Ensure even number of players
+    if (shuffled.Count % 2 != 0)
     {
-        maxIndex = maxIndex - 1;
+        shuffled.RemoveAt(shuffled.Count - 1);
     }
 
-    // Loop over the players 2 at a time
-    for (int i = 0; i < maxIndex; i += 2)
+    for (int i = 0; i < shuffled.Count; i += 2)
     {
         Console.WriteLine("-------------------");
-
-        // Make adjacent players play noe another
-        Player player1 = shuffledPlayers[i];
-        Player player2 = shuffledPlayers[i + 1];
-        player1.Play(player2);
+        Player p1 = shuffled[i];
+        Player p2 = shuffled[i + 1];
+        p1.Play(p2);
     }
 }
