@@ -1,8 +1,14 @@
 namespace ShootingDice;
-// TODO: Complete this class
 
 // A Player who shouts a taunt every time they roll dice
-public class SmackTalkingPlayer
+public class SmackTalkingPlayer : Player
 {
-    public string Taunt { get; }
+    // The taunt this player will say
+    public string Taunt { get; set; } = "You're going down!";
+
+    public override void Play(Player other)
+    {
+        Console.WriteLine($"{Name} says: \"{Taunt}\""); // Say the taunt
+        base.Play(other); // Then proceed with the default behavior
+    }
 }
