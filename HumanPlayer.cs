@@ -10,7 +10,7 @@ public class HumanPlayer : Player
 
         while (true)
         {
-            string? input = Console.ReadLine();
+            string input = Console.ReadLine();
 
             if (int.TryParse(input, out roll) && roll >= 1 && roll <= DiceSize)
             {
