@@ -24,9 +24,35 @@ smack.Play(player1);
 
 Console.WriteLine("-------------------");
 
+// CreativeSmackTalkingPlayer
+Player creativeSmack = new CreativeSmackTalkingPlayer() { Name = "Lex Luthor" };
+creativeSmack.Play(player2);
+
+Console.WriteLine("-------------------");
+
 // OneHigherPlayer
 Player oneHigher = new OneHigherPlayer() { Name = "Sneaky PlusOne" };
 oneHigher.Play(player2);
+
+Console.WriteLine("-------------------");
+
+// SoreLoserPlayer
+Player sore = new SoreLoserPlayer() { Name = "Salty Sam" };
+try
+{
+    sore.Play(player1);
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"[!]  {sore.Name} had a meltdown: {ex.Message}");
+}
+
+Console.WriteLine("-------------------");
+
+// HumanPlayer (prompts user input)
+Player human = new HumanPlayer() { Name = "You" };
+Console.WriteLine("👤 Human player will now roll against Bigun Rollsalot:");
+human.Play(large);
 
 Console.WriteLine("-------------------");
 
@@ -38,7 +64,10 @@ List<Player> players = new List<Player>()
     player3,
     large,
     smack,
-    oneHigher
+    creativeSmack,
+    oneHigher,
+    sore,
+    human
 };
 
 PlayMany(players);
@@ -62,6 +91,14 @@ static void PlayMany(List<Player> players)
         Console.WriteLine("-------------------");
         Player p1 = shuffled[i];
         Player p2 = shuffled[i + 1];
-        p1.Play(p2);
+
+        try
+        {
+            p1.Play(p2);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"[!]  Match interrupted: {ex.Message}");
+        }
     }
 }
