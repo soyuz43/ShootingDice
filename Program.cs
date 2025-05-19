@@ -57,8 +57,21 @@ Console.WriteLine("-------------------");
 
 // HumanPlayer (prompts user input)
 Player human = new HumanPlayer() { Name = "You" };
-Console.WriteLine("Human player will now roll against Bigun Rollsalot:");
+Console.WriteLine("👤 Human player will now roll against Bigun Rollsalot:");
 human.Play(large);
+
+Console.WriteLine("-------------------");
+
+// SoreLoserUpperHalfPlayer
+Player soreHalf = new SoreLoserUpperHalfPlayer() { Name = "HalfMad Hank" };
+try
+{
+    soreHalf.Play(player2);
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"[!]  {soreHalf.Name} had a meltdown: {ex.Message}");
+}
 
 Console.WriteLine("-------------------");
 
@@ -74,7 +87,8 @@ List<Player> players = new List<Player>()
     oneHigher,
     upper,
     sore,
-    human
+    human,
+    soreHalf
 };
 
 PlayMany(players);
