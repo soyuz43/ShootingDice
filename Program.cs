@@ -36,6 +36,12 @@ oneHigher.Play(player2);
 
 Console.WriteLine("-------------------");
 
+// UpperHalfPlayer
+Player upper = new UpperHalfPlayer() { Name = "Lucky Larry" };
+upper.Play(player3);
+
+Console.WriteLine("-------------------");
+
 // SoreLoserPlayer
 Player sore = new SoreLoserPlayer() { Name = "Salty Sam" };
 try
@@ -51,7 +57,7 @@ Console.WriteLine("-------------------");
 
 // HumanPlayer (prompts user input)
 Player human = new HumanPlayer() { Name = "You" };
-Console.WriteLine("👤 Human player will now roll against Bigun Rollsalot:");
+Console.WriteLine("Human player will now roll against Bigun Rollsalot:");
 human.Play(large);
 
 Console.WriteLine("-------------------");
@@ -66,6 +72,7 @@ List<Player> players = new List<Player>()
     smack,
     creativeSmack,
     oneHigher,
+    upper,
     sore,
     human
 };
